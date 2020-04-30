@@ -1,24 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+class Form extends Component{
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      email: "",
+      password: ""  
+    }
+  }
+
+  emailChanges = (email) => {
+    this.setState({ email: email })
+  }
+
+  passChanges = (password) => {
+    this.setState({ password: password })
+  }
+
+  submitForm = (e) => {
+    console.log(this.state)
+  }
+
+  render(){
+    let email = this.state.email;
+    return (
+      <form>
+        <input 
+          onChange={ (e)=>{ this.emailChanges( e.target.value )} }
+          type="email" 
+          placeholder="Email" 
+          value={email}/>
+        <br/>
+        <input
+          onChange={ (e)=>{ this.passChanges( e.target.value )} }
+          type="password" 
+          placeholder="Contraseña" 
+          value={this.state.password} />
+        <br/>
+        <button onClick={ this.submitForm } > Enviar </button>
+      </form>
+    );
+  }
+}
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Form />
     </div>
   );
 }
