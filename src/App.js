@@ -2,55 +2,39 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class Form extends Component{
+class Blog extends Component{
 
   constructor(props){
-    super(props);
-
+    super(props)
     this.state = {
-      email: "",
-      password: ""  
+      articles: []
     }
   }
 
-  emailChanges = (email) => {
-    this.setState({ email: email })
-  }
-
-  passChanges = (password) => {
-    this.setState({ password: password })
-  }
-
-  submitForm = (e) => {
-    console.log(this.state)
+  componentDidMount(){
+    let promise = fetch('https://jsonplaceholder.typicode.com/posts');
+    promise.then(response => response.json()).then(data=>{
+      this.setState({ articles: data })
+    });
   }
 
   render(){
-    let email = this.state.email;
     return (
-      <form>
-        <input 
-          onChange={ (e)=>{ this.emailChanges( e.target.value )} }
-          type="email" 
-          placeholder="Email" 
-          value={email}/>
-        <br/>
-        <input
-          onChange={ (e)=>{ this.passChanges( e.target.value )} }
-          type="password" 
-          placeholder="Contraseña" 
-          value={this.state.password} />
-        <br/>
-        <button onClick={ this.submitForm } > Enviar </button>
-      </form>
-    );
+      <div>
+      {
+        this.state.articles.map((article)=>{
+          return <p>{ article.title }</p>  
+        })
+      }
+      </div>
+    )
   }
 }
 
 function App() {
   return (
     <div>
-      <Form />
+      <Blog />
     </div>
   );
 }
