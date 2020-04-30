@@ -23,7 +23,11 @@ class Blog extends Component{
       <div>
       {
         this.state.articles.map((article)=>{
-          return <p>{ article.title }</p>  
+          return(
+            <div className="card mt-1" style={ { backgroundColor: 'blue' } }>
+              <p>{ article.title }</p>
+            </div>
+          )  
         })
       }
       </div>
@@ -33,7 +37,7 @@ class Blog extends Component{
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Blog />
     </div>
   );
